@@ -48,6 +48,12 @@ export default function Textform() {
         Count Length
       </button>
 
+
+      <div className="container">
+        <h2>You Text</h2>
+        <p>{text.split(" ").length} Words    , {text.length} character</p>
+        <p>Time: {text.split(" ").length*0.008}</p>
+      </div>
     </div>
   );
 }
