@@ -1,3 +1,4 @@
+import About from "./componets/About";
 import Navbar from "./componets/Navbar";
 import Textform from "./componets/Textform";
 function App() {
@@ -5,7 +6,8 @@ function App() {
     <div>
       <Navbar title={"Textutils"} />
       <div className="container">
-        <Textform />
+        {/* <Textform /> */}
+        <About />
       </div>
     </div>
   );

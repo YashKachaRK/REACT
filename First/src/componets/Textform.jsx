@@ -22,7 +22,9 @@ export default function Textform() {
     setText(event.target.value);
   };
 
-
+  const handleClear = ()=>{
+    setText("")
+  }
   return (
     <div>
       <div className="form-group">
@@ -47,7 +49,9 @@ export default function Textform() {
        <button className="btn btn-primary mt-3 ms-3" onClick={handleCount}>
         Count Length
       </button>
-
+        <button className="btn btn-primary mt-3 ms-3" onClick={handleClear}>
+        Clear
+      </button>
 
       <div className="container">
         <h2>You Text</h2>
