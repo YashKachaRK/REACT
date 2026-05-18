@@ -1,16 +1,19 @@
 import  { useState } from "react";
 
-export default function Textform() {
+export default function Textform(props) {
   const [text, setText] = useState("");
 
 
   const handleUpClick = () => {
     console.log("Upper Case");
     setText(text.toUpperCase());
+    props.showAlert("Upper Case Done","success")
   };
 
   const handleLowwerClick = ()=>{
     setText(text.toLowerCase());
+    props.showAlert("lower Case Done","success")
+
   }
 
   const handleCount = () =>{
