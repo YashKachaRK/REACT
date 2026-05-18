@@ -3,11 +3,20 @@ import  { useState } from "react";
 export default function Textform(props) {
   const [text, setText] = useState("");
 
-
+  // setInterval(() => {
+  //   document.title ="Good"
+  // }, 2000);
+  // setInterval(() => {
+  //   document.title = "Best"
+  // }, 1500);
   const handleUpClick = () => {
     console.log("Upper Case");
     setText(text.toUpperCase());
     props.showAlert("Upper Case Done","success")
+    document.title ="Text uppercase"
+      setTimeout(() => {
+    document.title = "first";
+  }, 2000);
   };
 
   const handleLowwerClick = ()=>{
