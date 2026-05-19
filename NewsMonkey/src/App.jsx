@@ -1,4 +1,6 @@
-import React, { Component } from 'react'
+import  { Component } from 'react'
+import Navbar from './componets/Navbar'
+import News from './componets/News'
 
 
 // method make here
@@ -8,7 +10,8 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <p>Class Base Component</p>
+        <Navbar />
+        <News />
       </div>
     )
   }
