@@ -55,9 +55,8 @@ function App() {
             {text}
           </label>
         </div>
-
-        
       </div>
+      
       <Routes>
         <Route path="/contact" element={<Contact />} />
         <Route path="/text" element={<Textform showAlert={showAlert} />} />

@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 
 export default function Textform(props) {
   const [text, setText] = useState("");
@@ -12,35 +12,31 @@ export default function Textform(props) {
   const handleUpClick = () => {
     console.log("Upper Case");
     setText(text.toUpperCase());
-    props.showAlert("Upper Case Done","success")
-    document.title ="Text uppercase"
-      setTimeout(() => {
-    document.title = "first";
-  }, 2000);
+    props.showAlert("Upper Case Done", "success");
+    document.title = "Text uppercase";
+    setTimeout(() => {
+      document.title = "first";
+    }, 2000);
   };
 
-  const handleLowwerClick = ()=>{
+  const handleLowwerClick = () => {
     setText(text.toLowerCase());
-    props.showAlert("lower Case Done","success")
-
-  }
-
-  const handleCount = () =>{
-    setText(text.length)
-  }
+    props.showAlert("lower Case Done", "success");
+  };
 
   const handleOnchage = (event) => {
     console.log("OnChange");
     setText(event.target.value);
   };
 
-  const handleClear = ()=>{
-    setText("")
-  }
+  const handleClear = () => {
+    setText("");
+    props.showAlert("Text Clear Done", "success");
+  };
   return (
-    <div>
+    <div className="container">
       <div className="form-group">
-        <label for="exampleFormControlTextarea1">
+        <label htmlFor="exampleFormControlTextarea1">
           Enter Text and select button{" "}
         </label>
         <textarea
@@ -58,17 +54,18 @@ export default function Textform(props) {
       <button className="btn btn-primary mt-3 ms-3" onClick={handleLowwerClick}>
         Convert to LowerCase
       </button>
-       <button className="btn btn-primary mt-3 ms-3" onClick={handleCount}>
-        Count Length
-      </button>
-        <button className="btn btn-primary mt-3 ms-3" onClick={handleClear}>
+
+      <button className="btn btn-primary mt-3 ms-3" onClick={handleClear}>
         Clear
       </button>
 
       <div className="container">
         <h2>You Text</h2>
-        <p>{text.split(" ").length} Words    , {text.length} character</p>
-        <p>Time: {text.split(" ").length*0.008}</p>
+        <p>
+          {text.trim() === "" ? 0 : text.trim().split(/\s+/).length} Words ,{" "}
+          {text.length} character
+        </p>
+        <p>Time: {text.split(" ").length * 0.008}</p>
       </div>
     </div>
   );
