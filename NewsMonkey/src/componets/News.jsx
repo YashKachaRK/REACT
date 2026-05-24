@@ -286,18 +286,25 @@ export default class News extends Component {
   constructor() {
     super();
     this.state = {
-      articles : this.articles,
-      loading : false
+      articles: this.articles[0].articles,
+      loading: false,
     };
   }
   render() {
     return (
-      <div>
-        this is news Componest
-        <Newsitem
-          title="Today 100 Run by Yash kacha"
-          description="in 29 ball"
-        />
+      <div className="grid grid-cols-6 gap-6 p-6">
+        {this.state.articles.map((element) => {
+          return (
+            <Newsitem
+              key={element.url}
+              title={element.title}
+              description={element.description}
+              imgUrl={element.urlToImage}
+              newsUrl = {element.url}
+              time = {element.publishedAt}
+            />
+          );
+        })}
       </div>
     );
   }
