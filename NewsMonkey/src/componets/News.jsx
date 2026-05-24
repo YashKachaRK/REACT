@@ -297,7 +297,7 @@ export default class News extends Component {
           return (
             <Newsitem
               key={element.url}
-              title={element.title}
+              title={element.title }
               description={element.description}
               imgUrl={element.urlToImage}
               newsUrl = {element.url}
