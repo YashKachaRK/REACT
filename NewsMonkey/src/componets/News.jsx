@@ -314,6 +314,7 @@ export default class News extends Component {
                 title={element.title}
                 description={element.description}
                 imgUrl={element.urlToImage}
+                newsUrl = {element.url}
               />
             );
           })}
