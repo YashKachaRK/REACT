@@ -290,6 +290,15 @@ export default class News extends Component {
       loading: false,
     };
   }
+
+  async componentDidMount(){
+    let url =  "https://newsapi.org/v2/everything?q=tesla&from=2026-04-24&sortBy=publishedAt&apiKey=5da591db591a4c2488c42a12b2bef658"
+    let data = await fetch(url);
+    let parseData = await data.json(data)
+    console.log(parseData);
+    this.setState ({article : parseData.article})
+
+  } // life cycle method it render when nichenu componet akhu run thay pachhi te run thay
   render() {
     return (
       <div className="grid grid-cols-6 gap-6 p-6">
