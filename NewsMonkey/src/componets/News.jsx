@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Newsitem from "./Newsitem";
+import Spinner from "./Spinner";
 
 export default class News extends Component {
   constructor() {
@@ -13,12 +14,14 @@ export default class News extends Component {
 
   async componentDidMount() {
     try {
-      let url =
-        `
-https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5da591db591a4c2488c42a12b2bef658&page=1&pageSize=${this.props.pageSize}`;
+      let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5da591db591a4c2488c42a12b2bef658&page=1&pageSize=${this.props.pageSize}`;
+      this.setState({ loading: true });
+
       let data = await fetch(url);
       let parseData = await data.json();
       console.log(parseData);
+      this.setState({ loading: false });
+
       this.setState({ articles: parseData.articles || [] });
     } catch (error) {
       console.log(error);
@@ -30,25 +33,26 @@ https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5da591d
 
     let nextPage = this.state.page + 1;
 
-    let url = `
-https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5da591db591a4c2488c42a12b2bef658&page=${nextPage}&pageSize=${this.props.pageSize}` ;
-
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5da591db591a4c2488c42a12b2bef658&page=${nextPage}&pageSize=${this.props.pageSize}`;
+    this.setState({ loading: true });
     let data = await fetch(url);
     let parseData = await data.json();
 
     console.log(parseData);
-
+    this.setState({ loading: false });
     this.setState({
       page: nextPage,
       articles: parseData.articles || [],
+            loading : false
+
     });
   };
 
   handleBackPage = async () => {
     console.log("Back Page ");
     let backPage = this.state.page - 1;
-    let url = `
-https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5da591db591a4c2488c42a12b2bef658&page=${backPage}&pageSize=${this.props.pageSize}  `;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5da591db591a4c2488c42a12b2bef658&page=${backPage}&pageSize=${this.props.pageSize}  `;
+    this.setState({ loading: true });
 
     let data = await fetch(url);
     let parseData = await data.json();
@@ -56,6 +60,7 @@ https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5da591d
     this.setState({
       page: backPage,
       articles: parseData.articles || [],
+      loading : false
     });
   };
 
@@ -85,6 +90,8 @@ https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5da591d
             Next →
           </button>
         </div>
+
+        {this.state.loading && <Spinner />}
         <div className="grid grid-cols-6 gap-6 p-6">
           {this.state.articles &&
             this.state.articles.map((element) => {
