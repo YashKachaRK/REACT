@@ -14,7 +14,7 @@ export default class News extends Component {
   async componentDidMount() {
     try {
       let url =
-        "https://newsapi.org/v2/everything?q=tesla&from=2026-04-24&sortBy=publishedAt&apiKey=5da591db591a4c2488c42a12b2bef658&page=1 & pageSize=20";
+        "https://newsapi.org/v2/everything?q=tesla&from=2026-04-25&sortBy=publishedAt&apiKey=5da591db591a4c2488c42a12b2bef658&page=1 ";
       let data = await fetch(url);
       let parseData = await data.json();
       console.log(parseData);
@@ -29,7 +29,7 @@ export default class News extends Component {
 
     let nextPage = this.state.page + 1;
 
-    let url = `https://newsapi.org/v2/everything?q=tesla&from=2026-04-24&sortBy=publishedAt&apiKey=5da591db591a4c2488c42a12b2bef658&page=${nextPage} & pageSize=20` ;
+    let url = `https://newsapi.org/v2/everything?q=tesla&from=2026-04-25&sortBy=publishedAt&apiKey=5da591db591a4c2488c42a12b2bef658&page=${nextPage} ` ;
 
     let data = await fetch(url);
     let parseData = await data.json();
@@ -45,7 +45,7 @@ export default class News extends Component {
   handleBackPage = async () => {
     console.log("Back Page ");
     let backPage = this.state.page - 1;
-    let url = `https://newsapi.org/v2/everything?q=tesla&from=2026-04-24&sortBy=publishedAt&apiKey=5da591db591a4c2488c42a12b2bef658&page=${backPage} & pageSize=20`;
+    let url = `https://newsapi.org/v2/everything?q=tesla&from=2026-04-25&sortBy=publishedAt&apiKey=5da591db591a4c2488c42a12b2bef658&page=${backPage} `;
 
     let data = await fetch(url);
     let parseData = await data.json();
