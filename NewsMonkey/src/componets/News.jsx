@@ -3,6 +3,7 @@ import Newsitem from "./Newsitem";
 import Spinner from "./Spinner";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroll-component";
+import LoadingBar from "react-top-loading-bar";
 export default class News extends Component {
   static defaultProps = {
     cat: "general",
@@ -24,6 +25,7 @@ export default class News extends Component {
       page: 1,
       totalResults: 0,
       error: null,
+      progress: 0,
     };
     document.title = this.props.cat;
   }
@@ -31,9 +33,13 @@ export default class News extends Component {
   fetchNews = async (page) => {
     try {
       this.setState({ loading: true, error: null });
+      this.setState({ progress: 10 });
+
       const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.cat}&apiKey=${this.props.apiKey}&page=${page}&pageSize=${this.props.pageSize}`;
 
       const response = await fetch(url);
+      this.setState({ progress: 50 });
+
       const parseData = await response.json();
 
       if (parseData.status === "error") {
@@ -45,6 +51,7 @@ export default class News extends Component {
         totalResults: parseData.totalResults || 0,
         page: page,
         loading: false,
+        progress: 100,
       });
     } catch (err) {
       console.error("Fetch News Error:", err);
@@ -77,22 +84,30 @@ export default class News extends Component {
 
   fatchMoreData = async () => {
     let nextPage = this.state.page + 1;
+    this.setState({ progress: 10 });
+
     let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.cat}&apiKey=${this.props.apiKey}&page=${nextPage}&pageSize=${this.props.pageSize}`;
+    this.setState({ progress: 50 });
+
     let data = await fetch(url);
     let parseData = await data.json();
     this.setState({
       page: nextPage,
       articles: this.state.articles.concat(parseData.articles),
+      progress: 100,
     });
   };
   render() {
-    const { articles, loading, page, totalResults, error } = this.state;
+    const { articles, page, totalResults, error } = this.state;
+    // const { articles, loading, page, totalResults, error } = this.state;
     const categoryName =
       this.props.cat.charAt(0).toUpperCase() + this.props.cat.slice(1);
-    const maxPage = Math.ceil(totalResults / this.props.pageSize);
+    // const maxPage = Math.ceil(totalResults / this.props.pageSize);
+    // const maxPage = Math.ceil(totalResults / this.props.pageSize);
 
     return (
       <div className="bg-gray-50/50 min-h-screen pb-16">
+        <LoadingBar color="#f11946" progress={this.state.progress} />
         {/* Styled Category Header Banner */}
         <div className="bg-gray-900 text-white py-12 px-6 shadow-sm border-b border-gray-800">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
