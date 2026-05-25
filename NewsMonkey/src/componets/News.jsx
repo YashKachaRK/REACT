@@ -118,6 +118,7 @@ export default class News extends Component {
                     }
                     newsUrl={element.url}
                     time={element.publishedAt}
+                    author = {element.author}
                   />
                 );
               })}
