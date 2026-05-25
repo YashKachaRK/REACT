@@ -16,8 +16,8 @@ export default class News extends Component {
     pageSize: PropTypes.number,
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       articles: [],
       loading: false,
@@ -25,6 +25,7 @@ export default class News extends Component {
       totalResults: 0,
       error: null,
     };
+    document.title = this.props.cat;
   }
 
   fetchNews = async (page) => {
