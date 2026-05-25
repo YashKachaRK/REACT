@@ -1,8 +1,20 @@
 import { Component } from "react";
 import Newsitem from "./Newsitem";
 import Spinner from "./Spinner";
-
+import PropTypes from "prop-types";
 export default class News extends Component {
+  static defaultProps = {
+    cat: "sport",
+    country: "us",
+    pageSize: 5,
+  };
+
+  static propTypes = {
+    cat: PropTypes.string,
+    country: PropTypes.string,
+    pageSize: PropTypes.number,
+  };
+
   constructor() {
     super();
     this.state = {
@@ -66,7 +78,7 @@ export default class News extends Component {
   render() {
     return (
       <div>
-        <div className="flex justify-center items-center gap-4 my-8">
+        <div className="flex flex-wrap justify-center items-center gap-4 my-8 px-4">
           {/* Previous Button */}
           <button
             className="px-6 py-2 bg-gray-800 text-white rounded-xl shadow-md hover:bg-gray-700 hover:scale-105 transition duration-300"
@@ -75,12 +87,10 @@ export default class News extends Component {
           >
             ← Previous
           </button>
-
           {/* Page Number */}
           <span className="px-4 py-2 bg-gray-100 rounded-lg text-gray-700 font-semibold shadow">
             Page {this.state.page}
           </span>
-
           {/* Next Button */}
           <button
             className="px-6 py-2 bg-blue-600 text-white rounded-xl shadow-md hover:bg-blue-700 hover:scale-105 transition duration-300"

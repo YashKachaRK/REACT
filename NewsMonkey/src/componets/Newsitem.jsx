@@ -5,8 +5,12 @@ export default class Newsitem extends Component {
     let { title, description, imgUrl, newsUrl, time } = this.props;
     return (
       <div>
-        <div className="max-w-sm bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition duration-300">
-          <img src={imgUrl} alt="news" className="w-full h-52 object-cover" />
+        <div className="w-full bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-105 transition duration-300">
+          <img
+            src={imgUrl}
+            alt="news"
+            className="w-full h-48 sm:h-52 object-cover"
+          />
 
           {/* Content */}
           <div className="p-5">
@@ -19,7 +23,7 @@ export default class Newsitem extends Component {
             </span>
 
             {/* Title */}
-            <h2 className="text-xl font-bold mt-3">{title}</h2>
+            <h2 className="text-lg sm:text-xl font-bold mt-3">{title}</h2>
 
             {/* Description */}
             <p className="text-gray-600 mt-2">{description}</p>
