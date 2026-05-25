@@ -43,15 +43,14 @@ export default class News extends Component {
     this.setState({
       page: nextPage,
       articles: parseData.articles || [],
-            loading : false
-
+      loading: false,
     });
   };
 
   handleBackPage = async () => {
     console.log("Back Page ");
     let backPage = this.state.page - 1;
-    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5da591db591a4c2488c42a12b2bef658&page=${backPage}&pageSize=${this.props.pageSize}  `;
+    let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5da591db591a4c2488c42a12b2bef658&page=${backPage}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
 
     let data = await fetch(url);
@@ -60,7 +59,7 @@ export default class News extends Component {
     this.setState({
       page: backPage,
       articles: parseData.articles || [],
-      loading : false
+      loading: false,
     });
   };
 
@@ -91,26 +90,29 @@ export default class News extends Component {
           </button>
         </div>
 
-        {this.state.loading && <Spinner />}
-        <div className="grid grid-cols-6 gap-6 p-6">
-          {this.state.articles &&
-            this.state.articles.map((element) => {
-              return (
-                <Newsitem
-                  key={element.url}
-                  title={element.title}
-                  description={element.description}
-                  imgUrl={
-                    element.urlToImage
-                      ? element.urlToImage
-                      : "https://img.magnific.com/premium-vector/file-folder-mascot-character-design-vector_166742-4413.jpg?semt=ais_hybrid&w=740&q=80"
-                  }
-                  newsUrl={element.url}
-                  time={element.publishedAt}
-                />
-              );
-            })}
-        </div>
+        {this.state.loading ? (
+          <Spinner />
+        ) : (
+          <div className="grid grid-cols-6 gap-6 p-6">
+            {this.state.articles &&
+              this.state.articles.map((element) => {
+                return (
+                  <Newsitem
+                    key={element.url}
+                    title={element.title}
+                    description={element.description}
+                    imgUrl={
+                      element.urlToImage
+                        ? element.urlToImage
+                        : "https://img.magnific.com/premium-vector/file-folder-mascot-character-design-vector_166742-4413.jpg?semt=ais_hybrid&w=740&q=80"
+                    }
+                    newsUrl={element.url}
+                    time={element.publishedAt}
+                  />
+                );
+              })}
+          </div>
+        )}
       </div>
     );
   }
