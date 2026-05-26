@@ -21,6 +21,10 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
+    let user = User.findOne({email : req.body.email})
+    if(user){
+      return res.status(400).json({error : "Sorry User is alredy there "})
+    }
 
     User.create({
       name: req.body.name,
