@@ -8,6 +8,8 @@ connectToMongo()
 const app = express();
 const port = process.env.PORT ;
 
+app.use(express.json());
+
 app.use('/api/auth' , require('./routes/auth'))
 app.use('/api/note' , require('./routes/note'))
 
