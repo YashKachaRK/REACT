@@ -8,15 +8,10 @@ connectToMongo()
 const app = express();
 const port = process.env.PORT ;
 
-// Middleware to parse JSON bodies
-app.use(express.json());
+app.use('/api/auth' , require('./routes/auth'))
+app.use('/api/note' , require('./routes/note'))
 
-// Basic Route
-app.get('/', (req, res) => {
-  res.send('Hello World!' );
-});
 
-// Start Server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
