@@ -1,16 +1,40 @@
 const express = require('express');
 const router = express.Router();
-const User  = require ('../models/User')
 
+const User = require('../models/User');
 
-// CREATE USER  USING POST : "/api/auth/"
-router.post('/', (req, res) => {
-  console.log(req.body);
-  
-  const user  = User(req.body);
-  user.save();
+const { body, validationResult } = require('express-validator');
 
-  res.send(req.body)
+// CREATE USER
+router.post(
+  '/',
+  [
+    body('name', 'Minimum length is 4').isLength({ min: 4 }),
+    body('emailid', 'Enter valid email').isEmail(),
+    body('password', 'Minimum length is 8').isLength({ min: 8 })
+  ],
 
-})
-module.exports = router
+  (req, res) => {
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    User.create({
+      name: req.body.name,
+      emailid: req.body.emailid,
+      password: req.body.password
+    })
+    .then(user => {
+      res.json(user);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).send("Server Error");
+    });
+  }
+);
+
+module.exports = router;
