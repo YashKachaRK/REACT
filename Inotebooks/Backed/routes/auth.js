@@ -5,6 +5,8 @@ const User = require('../models/User');
 const JWT_SECRET = "YashKacha@#786"
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
+const fatchuser = require('../middleware/fatchuser')
+
 // CREATE USER
 //ROUTE1
 router.post(
@@ -131,19 +133,13 @@ router.post(
 // AUTH USER GET USER POST : /api/auth/getuser
 
 router.post(
-  '/getuser',
+  '/getuser', fatchuser,
   async (req, res) => {
-    const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        errors: errors.array()
-      });
-    }
-
-    const { emailid, password } = req.body;
     try {
+      userId = req.user.id;
       const user = await User.findById(userId).select("-password")
+      res.send(user)
     } catch (error) {
       console.log(error);
       res.status(500).send("Server Error");
