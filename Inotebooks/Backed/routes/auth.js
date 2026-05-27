@@ -6,6 +6,7 @@ const JWT_SECRET = "YashKacha@#786"
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 // CREATE USER
+//ROUTE1
 router.post(
   '/',
   [
@@ -72,7 +73,7 @@ router.post(
   }
 );
 
-
+//ROUTE 2
 // Auth User using POST : /api/auth/login . No Login NEed
 router.post(
   '/login',
@@ -124,6 +125,30 @@ router.post(
       console.log(error);
       res.status(500).send("Server Error");
     }
+  })
+
+// ROUTE 3 
+// AUTH USER GET USER POST : /api/auth/getuser
+
+router.post(
+  '/getuser',
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array()
+      });
+    }
+
+    const { emailid, password } = req.body;
+    try {
+      const user = await User.findById(userId).select("-password")
+    } catch (error) {
+      console.log(error);
+      res.status(500).send("Server Error");
+    }
+
   })
 
 module.exports = router;
