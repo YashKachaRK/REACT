@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt')
 const User = require('../models/User');
-const JWT_SECRET ="YashKacha@#786"
+const JWT_SECRET = "YashKacha@#786"
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 // CREATE USER
@@ -38,8 +38,8 @@ router.post(
         });
       }
 
-      const salt =await  bcrypt.genSalt(10)
-      const securePass = await bcrypt.hash(req.body.password , salt)
+      const salt = await bcrypt.genSalt(10)
+      const securePass = await bcrypt.hash(req.body.password, salt)
 
       // CREATE USER
       user = await User.create({
@@ -49,18 +49,18 @@ router.post(
       });
 
       const data = {
-        user:{
+        user: {
           id: user.id
         }
       }
-      const authToken = jwt.sign(data , JWT_SECRET)
-    
-      
+      const authToken = jwt.sign(data, JWT_SECRET)
+
+
       // RESPONSE
       res.json({
         success: true,
         message: "User added successfully",
-        authToken : authToken
+        authToken: authToken
       });
 
     } catch (error) {
@@ -71,5 +71,59 @@ router.post(
     }
   }
 );
+
+
+// Auth User using POST : /api/auth/login . No Login NEed
+router.post(
+  '/login',
+  [
+
+    body('emailid', 'Enter valid email').isEmail(),
+    body('password', 'Password Cannot be blac').exists(),
+  ],
+
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({
+        errors: errors.array()
+      });
+    }
+
+    const { emailid, password } = req.body;
+    try {
+      let user = await User.findOne({ emailid });
+
+      if (!user) {
+        return res.status(400).json({
+          error: "Please try to login currect credentaials"
+        });
+      }
+
+      const passwordCompare = await bcrypt.compare(password, user.password);
+      if (!passwordCompare) {
+        return res.status(400).json({
+          error: "Please try to login currect credentaials"
+        });
+      }
+      const payload = {
+        user: {
+          id: user.id
+        }
+      }
+
+      const authToken = jwt.sign(payload, JWT_SECRET)
+      res.json({
+        success: true,
+        authToken: authToken,
+      });
+
+    } catch (error) {
+
+      console.log(error);
+      res.status(500).send("Server Error");
+    }
+  })
 
 module.exports = router;
