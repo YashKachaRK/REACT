@@ -48,10 +48,19 @@ router.post(
         password: securePass
       });
 
+      const data = {
+        user:{
+          id: user.id
+        }
+      }
+      const authToken = jwt.sign(data , JWT_SECRET)
+    
+      
       // RESPONSE
       res.json({
         success: true,
-        message: "User added successfully"
+        message: "User added successfully",
+        authToken : authToken
       });
 
     } catch (error) {
