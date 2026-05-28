@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const {Schema} = mongoose
 const userSchema = new mongoose.Schema({
+  // create user in database 
 
 
 
@@ -24,6 +25,6 @@ const userSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-
+// using userSchema  'user' table name
 const User = mongoose.model('user', userSchema)
 module.exports= User

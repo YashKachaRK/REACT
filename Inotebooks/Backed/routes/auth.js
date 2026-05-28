@@ -12,6 +12,7 @@ const fatchuser = require('../middleware/fatchuser')
 router.post(
   '/',
   [
+    // get data in json checkk
     body('name', 'Minimum length is 4').isLength({ min: 4 }),
     body('emailid', 'Enter valid email').isEmail(),
     body('password', 'Minimum length is 8').isLength({ min: 8 })
@@ -40,7 +41,7 @@ router.post(
           error: "Sorry User is already there"
         });
       }
-
+      // password hash with salt
       const salt = await bcrypt.genSalt(10)
       const securePass = await bcrypt.hash(req.body.password, salt)
 
@@ -50,7 +51,7 @@ router.post(
         emailid: req.body.emailid,
         password: securePass
       });
-
+       //  payload store data in jwt token 
       const data = {
         user: {
           id: user.id
@@ -80,36 +81,39 @@ router.post(
 router.post(
   '/login',
   [
-
+    // get data
     body('emailid', 'Enter valid email').isEmail(),
     body('password', 'Password Cannot be blac').exists(),
   ],
 
   async (req, res) => {
     const errors = validationResult(req);
-
+    // check error
     if (!errors.isEmpty()) {
       return res.status(400).json({
         errors: errors.array()
       });
     }
-
+    // destrucring 
     const { emailid, password } = req.body;
     try {
+      // find email id check data is there or not ?
       let user = await User.findOne({ emailid });
-
+      // jo no hoy to error
       if (!user) {
         return res.status(400).json({
           error: "Please try to login currect credentaials"
         });
       }
-
+      // password check kare chhe
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
         return res.status(400).json({
           error: "Please try to login currect credentaials"
         });
       }
+
+      // data store in jwt token
       const payload = {
         user: {
           id: user.id
@@ -135,9 +139,12 @@ router.post(
 router.post(
   '/getuser', fatchuser,
   async (req, res) => {
-
+    // data fatch thay chhe using middleware 
     try {
+      // get data in fatchuser 
       userId = req.user.id;
+      // check id this id in database check data is availble
+      // '-password sivay badhu checkk karse'
       const user = await User.findById(userId).select("-password")
       res.send(user)
     } catch (error) {
