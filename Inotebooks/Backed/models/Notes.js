@@ -3,7 +3,11 @@ const {Schema} = mongoose
 
 const noteSchema = new mongoose.Schema({
 
-
+  user:{
+    // foreign key
+    type : mongoose.Schema.Types.ObjectId,
+    ref : 'user'
+  },
 
   title: {
     type: String,
