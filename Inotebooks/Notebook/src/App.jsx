@@ -1,9 +1,9 @@
-import Navbar from "./Component/Navbar";
+import Navbar from "./components/Navbar";
 import { Route, Routes } from "react-router-dom";
-import Notes from "./Component/Notes";
-import Favorites from "./Component/Favorites";
-import Profile from "./Component/Profile";
-import Home from "./Component/Home";
+import Notes from "./components/Notes";
+import Favorites from "./components/Favorites";
+import Profile from "./components/Profile";
+import Home from "./components/Home";
 
 function App() {
   return (
