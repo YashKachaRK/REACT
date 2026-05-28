@@ -10,7 +10,7 @@ const fatchuser = require('../middleware/fatchuser')
 // CREATE USER
 //ROUTE1
 router.post(
-  '/',
+  '/addUser',
   [
     // get data in json checkk
     body('name', 'Minimum length is 4').isLength({ min: 4 }),
@@ -21,7 +21,6 @@ router.post(
   async (req, res) => {
 
     try {
-
       // VALIDATION
       const errors = validationResult(req);
 
@@ -29,6 +28,7 @@ router.post(
         return res.status(400).json({
           errors: errors.array()
         });
+        
       }
 
       // CHECK USER
