@@ -5,6 +5,7 @@ import Favorites from "./components/Favorites";
 import Profile from "./components/Profile";
 import Home from "./components/Home";
 import NoteState from "./context/notes/NoteState";
+import AddNote from "./components/AddNotes";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/Notes" element={<Notes />} />
           <Route path="/Favorites" element={<Favorites />} />
           <Route path="/Profile" element={<Profile />} />
+          <Route path="/addNote" element={<AddNote />} />
         </Routes>
       </NoteState>
     </>

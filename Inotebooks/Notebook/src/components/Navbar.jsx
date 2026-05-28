@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import { Menu, X, NotebookPen, Home, BookOpen, Star, User } from "lucide-react";
 
-import { NavLink } from "react-router-dom";
+import { NavLink,Link, useLocation } from "react-router-dom";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -13,6 +13,11 @@ export default function Navbar() {
     { name: "Profile", icon: <User size={18} />, path: "/Profile" },
   ];
 
+  let location = useLocation();
+
+  useEffect (()=>{
+    console.log(location.search)
+  },[location.search])
   return (
     <nav className="bg-black text-white shadow-lg border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-5">
@@ -46,9 +51,9 @@ export default function Navbar() {
           </div>
 
           {/* Add Note Button */}
-          <button className="hidden md:block bg-yellow-400 text-black px-5 py-2 rounded-xl font-semibold hover:scale-105 transition duration-300">
+          <Link to="/addNote" className="hidden md:block bg-yellow-400 text-black px-5 py-2 rounded-xl font-semibold hover:scale-105 transition duration-300">
             + Add Note
-          </button>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button className="md:hidden" onClick={() => setOpen(!open)}>
