@@ -6,13 +6,14 @@ import Profile from "./components/Profile";
 import Home from "./components/Home";
 import NoteState from "./context/notes/NoteState";
 import AddNote from "./components/AddNotes";
+import Alert from "./components/Alert";
 
 function App() {
   return (
     <>
       <NoteState>
         <Navbar />
-
+      {/* <Alert type = "success" message ="Note added"/> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Notes" element={<Notes />} />

@@ -29,6 +29,7 @@ export default function NoteCard(props) {
 
           <button className="bg-zinc-800 p-2 rounded-lg hover:bg-red-500 hover:text-white transition duration-300">
             <Trash2 size={18} />
+            
           </button>
 
         </div>
