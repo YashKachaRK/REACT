@@ -6,7 +6,7 @@ import Profile from "./components/Profile";
 import Home from "./components/Home";
 import NoteState from "./context/notes/NoteState";
 import AddNote from "./components/AddNotes";
-import Alert from "./components/Alert";
+// import Alert from "./components/Alert";
 
 function App() {
   return (
