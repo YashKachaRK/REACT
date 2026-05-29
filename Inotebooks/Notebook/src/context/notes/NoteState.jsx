@@ -101,7 +101,7 @@ const NoteState = (props) => {
   // add a notes
   const addNote = (title, description, tag) => {
     // API call
-    note = {
+   const note = {
       _id: "6a17c9b120f7d37ae045139b",
       user: "6a16decceb42c3b5ae8ba7d4",
       title: "Add",
@@ -110,7 +110,7 @@ const NoteState = (props) => {
       date: "2026-05-28T04:50:57.221Z",
       __v: 0,
     };
-    setNotes(notes.push(note));
+    setNotes(notes.concat(note));
   };
   // delete a notes
   const deleteNote = () => {};
