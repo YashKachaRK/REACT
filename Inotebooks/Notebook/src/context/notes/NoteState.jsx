@@ -104,16 +104,22 @@ const NoteState = (props) => {
    const note = {
       _id: "6a17c9b120f7d37ae045139b",
       user: "6a16decceb42c3b5ae8ba7d4",
-      title: "Add",
-      description: "My notes is good",
-      tag: "Persnol",
+      title: title,
+      description: description,
+      tag: tag,
       date: "2026-05-28T04:50:57.221Z",
       __v: 0,
     };
     setNotes(notes.concat(note));
   };
   // delete a notes
-  const deleteNote = () => {};
+  const deleteNote = (id) => {
+    console.log("Woking"+id);
+    const newNotes = notes.filter((note)=>{
+      return note._id !== id
+    })
+    setNotes(newNotes);
+  };
 
   // edit notes
   const editNote = () => {};

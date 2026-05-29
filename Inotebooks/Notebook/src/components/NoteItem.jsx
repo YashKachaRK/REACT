@@ -1,6 +1,9 @@
 import { Pencil, Trash2, Tag } from "lucide-react";
-
+import noteContext from "../context/notes/NoteContext";
+import { useContext } from "react";
 export default function NoteCard(props) {
+  const context = useContext(noteContext);
+  const {deleteNote} = context
 
   const {note} = props;
   return (
@@ -27,8 +30,11 @@ export default function NoteCard(props) {
             <Pencil size={18} />
           </button>
 
-          <button className="bg-zinc-800 p-2 rounded-lg hover:bg-red-500 hover:text-white transition duration-300">
+          <button className="bg-zinc-800 p-2 rounded-lg hover:bg-red-500 hover:text-white transition duration-300"
+          onClick={()=>{deleteNote(note._id)}}
+          >
             <Trash2 size={18} />
+            
             
           </button>
 

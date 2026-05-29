@@ -32,7 +32,7 @@ export default function AddNote() {
 
     if (!validate()) return;
 
-    addNote(note);
+    addNote(note.title , note.description , note.tag);
 
     setAlert({
       type: "success",
