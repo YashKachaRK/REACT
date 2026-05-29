@@ -122,7 +122,7 @@ const NoteState = (props) => {
   };
 
   // edit notes
-  const editNote = () => {};
+  const editNote = (id , title , description , tag) => {};
   return (
     <noteContext.Provider value={{ notes, addNote, deleteNote, editNote }}>
       {props.children}
@@ -131,17 +131,3 @@ const NoteState = (props) => {
 };
 
 export default NoteState;
-// const [state, setState] = useState(s1);
-// const update = () => {
-//   setTimeout(() => {
-//     setState({
-//       name: "gracy",
-//       class: "b",
-//     });
-//   }, 1000);
-// };
-
-// const s1 = {
-//   name: "Yash",
-//   class: "A",
-// };
