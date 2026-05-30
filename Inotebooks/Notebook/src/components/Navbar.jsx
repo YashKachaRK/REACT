@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Menu, X, NotebookPen, Home, BookOpen, Star, User } from "lucide-react";
 
-import { NavLink, Link, useLocation } from "react-router-dom";
+import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-
+  let navigate = useNavigate();
   const navItems = [
     { name: "Home", icon: <Home size={18} />, path: "/" },
     { name: "Notes", icon: <BookOpen size={18} />, path: "/Notes" },
@@ -17,7 +17,15 @@ export default function Navbar() {
 
   useEffect(() => {
     console.log(location.search);
-  }, [location.search]);
+    if (!localStorage.getItem("token")) {
+      navigate("/login");
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   return (
     <nav className="bg-black text-white shadow-lg border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-5">
@@ -58,13 +66,21 @@ export default function Navbar() {
             >
               + Add Note
             </Link>
-
-            <Link
-              to="/login"
-              className="bg-yellow-400 text-black px-5 py-2 rounded-xl font-semibold hover:scale-105 transition duration-300"
-            >
-              Login
-            </Link>
+            {localStorage.getItem("token") ? (
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 text-white px-4 py-2 rounded-lg"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="bg-yellow-400 text-black px-5 py-2 rounded-xl font-semibold hover:scale-105 transition duration-300"
+              >
+                Login
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}

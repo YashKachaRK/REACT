@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Alert from "./Alert";
 export default function Login() {
+  let navigate = useNavigate();
   const [alert, setAlert] = useState(null);
   const [credentials, setCredentials] = useState({
     email: "",
@@ -29,11 +31,22 @@ export default function Login() {
     });
     const json = await response.json();
     if (json.success) {
+      setAlert({
+        type: "success",
+        message: "Login Successfully",
+      });
+
+      setTimeout(() => {
+        setAlert(null);
+      }, 3000);
+      navigate("/");
+      localStorage.setItem("token", json.authToken);
+
       // red
     } else {
       setAlert({
-        type: "success",
-        message: "Note Added Successfully",
+        type: "error",
+        message: "Invalid Credentials",
       });
 
       setTimeout(() => {
