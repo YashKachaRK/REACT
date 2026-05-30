@@ -58,8 +58,8 @@ export default function AddNote() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-2xl bg-zinc-900 p-8 rounded-3xl shadow-2xl border border-zinc-800">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8">
+      <div className="w-full max-w-2xl bg-zinc-900 p-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-2xl border border-zinc-800">
         {alert && <Alert type={alert.type} message={alert.message} />}
         {/* Heading */}
         <h1 className="text-4xl font-bold text-white mb-2">Add New Note</h1>

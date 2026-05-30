@@ -45,7 +45,7 @@ export default function Alert({ type, message }) {
 
   return (
     <div
-      className={`fixed top-5 right-5 flex items-center gap-4 bg-zinc-900 border ${style.border} text-white px-5 py-4 rounded-2xl shadow-2xl min-w-[340px] z-50`}
+      className={`fixed top-5 right-4 left-4 sm:left-auto sm:right-5 flex items-center gap-4 bg-zinc-900 border ${style.border} text-white px-5 py-4 rounded-2xl shadow-2xl min-w-0 sm:min-w-[340px] z-50`}
     >
       
       <div className={`${style.bg} p-2 rounded-full`}>

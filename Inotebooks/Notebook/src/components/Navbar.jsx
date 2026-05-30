@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { Menu, X, NotebookPen, Home, BookOpen, Star, User } from "lucide-react";
+import { Menu, X, NotebookPen,  BookOpen, User } from "lucide-react";
 import noteContext from "../context/notes/NoteContext";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -9,9 +9,9 @@ export default function Navbar() {
 
   let navigate = useNavigate();
   const navItems = [
-    { name: "Home", icon: <Home size={18} />, path: "/" },
+    // { name: "Home", icon: <Home size={18} />, path: "/" },
     { name: "Notes", icon: <BookOpen size={18} />, path: "/Notes" },
-    { name: "Favorites", icon: <Star size={18} />, path: "/Favorites" },
+    // { name: "Favorites", icon: <Star size={18} />, path: "/Favorites" },
     { name: "Profile", icon: <User size={18} />, path: "/Profile" },
   ];
 
@@ -62,8 +62,8 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Add Note Button */}
-          <div className="flex items-center gap-3">
+          {/* Add Note Button (Desktop only) */}
+          <div className="hidden md:flex items-center gap-3">
             <Link
               to="/addNote"
               className="bg-yellow-400 text-black px-5 py-2 rounded-xl font-semibold hover:scale-105 transition duration-300"
@@ -73,7 +73,7 @@ export default function Navbar() {
             {localStorage.getItem("token") ? (
               <button
                 onClick={handleLogout}
-                className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                className="bg-red-500 text-white px-4 py-2 rounded-lg cursor-pointer"
               >
                 Logout
               </button>
@@ -88,34 +88,59 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden" onClick={() => setOpen(!open)}>
+          <button className="md:hidden text-white focus:outline-none cursor-pointer" onClick={() => setOpen(!open)}>
             {open ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {open && (
-          <div className="md:hidden pb-5 pt-3 flex flex-col gap-4 animate-fadeIn">
+          <div className="md:hidden pb-5 pt-3 flex flex-col gap-4 animate-fadeIn border-t border-zinc-800 mt-2">
             {navItems.map((item, index) => (
               <NavLink
                 key={index}
                 to={item.path}
                 className={({ isActive }) =>
-                  `flex items-center gap-2 transition duration-300 ${
+                  `flex items-center gap-2 py-2 transition duration-300 ${
                     isActive
                       ? "text-yellow-400 font-semibold"
                       : "hover:text-yellow-400"
                   }`
                 }
+                onClick={() => setOpen(false)}
               >
                 {item.icon}
                 {item.name}
               </NavLink>
             ))}
 
-            <button className="bg-yellow-400 text-black py-3 rounded-xl font-semibold mt-2">
+            <Link
+              to="/addNote"
+              className="bg-yellow-400 text-black py-3 rounded-xl font-semibold mt-2 text-center block"
+              onClick={() => setOpen(false)}
+            >
               + Add Note
-            </button>
+            </Link>
+
+            {localStorage.getItem("token") ? (
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setOpen(false);
+                }}
+                className="bg-red-500 text-white py-3 rounded-xl font-semibold text-center w-full cursor-pointer"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="bg-yellow-400 text-black py-3 rounded-xl font-semibold mt-2 text-center block"
+                onClick={() => setOpen(false)}
+              >
+                Login
+              </Link>
+            )}
           </div>
         )}
       </div>

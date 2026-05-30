@@ -7,7 +7,7 @@ export default function NoteCard(props) {
 
   const { note , updateNote } = props;
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 shadow-lg hover:scale-[1.02] transition duration-300 m-5">
+    <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5 shadow-lg hover:scale-[1.02] transition duration-300">
       {/* Top */}
       <div className="flex items-start justify-between">
         <div>

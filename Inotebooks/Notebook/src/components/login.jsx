@@ -44,7 +44,7 @@ export default function Login() {
       localStorage.setItem("name", json.user.name);
       localStorage.setItem("emailid", json.user.emailid);
       setTimeout(() => {
-        navigate("/");
+        navigate("/Notes");
       }, 1000);
       // red
     } else {
@@ -58,9 +58,9 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-950">
+    <div className="min-h-screen flex items-center justify-center bg-zinc-950 px-4 py-8">
       {alert && <Alert type={alert.type} message={alert.message} />}
-      <div className="w-full max-w-md bg-zinc-900 p-8 rounded-2xl shadow-lg border border-zinc-800">
+      <div className="w-full max-w-md bg-zinc-900 p-6 sm:p-8 rounded-2xl shadow-lg border border-zinc-800">
         <h2 className="text-3xl font-bold text-white text-center mb-6">
           Login
         </h2>
