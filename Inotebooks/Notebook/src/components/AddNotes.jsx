@@ -27,12 +27,12 @@ export default function AddNote() {
 
     return Object.keys(newErrors).length === 0;
   };
-  const handleAddNote = (e) => {
+  const handleAddNote = async  (e) => {
     e.preventDefault(); // atale page reload no thay
 
     if (!validate()) return;
 
-    addNote(note.title , note.description , note.tag);
+    await addNote(note.title , note.description , note.tag);
 
     setAlert({
       type: "success",

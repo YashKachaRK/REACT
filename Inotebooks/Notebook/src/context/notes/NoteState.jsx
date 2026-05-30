@@ -43,7 +43,7 @@ const NoteState = (props) => {
     //   __v: 0,
     // };
     const json = await responose.json();
-    setNotes(notes.concat(json));
+    setNotes((prevNote)=>prevNote.concat(json));
   };
   // delete a notes
   const deleteNote = async (id) => {

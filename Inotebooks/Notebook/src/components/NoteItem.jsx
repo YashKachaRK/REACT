@@ -23,7 +23,7 @@ export default function NoteCard(props) {
         <div className="flex gap-3">
           <button
             className="bg-zinc-800 p-2 rounded-lg hover:bg-yellow-400 hover:text-black transition duration-300"
-            onClick={()=>{props.updateNote(note)}}
+            onClick={()=>updateNote(note)}
           >
             <Pencil size={18} />
           </button>
