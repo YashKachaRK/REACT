@@ -28,7 +28,7 @@ router.post(
         return res.status(400).json({
           errors: errors.array()
         });
-        
+
       }
 
       // CHECK USER
@@ -52,7 +52,7 @@ router.post(
         emailid: req.body.emailid,
         password: securePass
       });
-       //  payload store data in jwt token 
+      //  payload store data in jwt token 
       const data = {
         user: {
           id: user.id
@@ -103,7 +103,7 @@ router.post(
       let user = await User.findOne({ emailid });
       // jo no hoy to error
       if (!user) {
-        success : false
+        success: false
         return res.status(400).json({
           error: "Please try to login currect credentaials"
         });
@@ -112,7 +112,7 @@ router.post(
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
         return res.status(400).json({
-          success : false ,
+          success: false,
           error: "Please try to login currect credentaials"
         });
       }
@@ -128,6 +128,10 @@ router.post(
       res.json({
         success: true,
         authToken: authToken,
+        user: {
+          name: user.name,
+          emailid: user.emailid
+        }
       });
 
     } catch (error) {

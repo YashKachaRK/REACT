@@ -20,8 +20,8 @@ export default function Signup() {
     });
   };
 
-  const showAlert = (type, message) => {
-    setAlert({ type, message });
+ const showAlert = (type, message) => {
+    setAlert({ type, message }); 
 
     setTimeout(() => {
       setAlert(null);

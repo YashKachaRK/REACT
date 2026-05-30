@@ -4,14 +4,14 @@ import noteContext from "./NoteContext";
 // import { useState } from "react";
 const NoteState = (props) => {
   const host = "http://localhost:5000";
-  const authToken = localStorage.getItem("token");
+
   const [notes, setNotes] = useState([]);
   const getNotes = async () => {
     const responose = await fetch(`${host}/api/note/fatchallnotes`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": authToken,
+        "auth-token": localStorage.getItem("token"),
       },
     });
 
@@ -27,7 +27,7 @@ const NoteState = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": authToken,
+        "auth-token": localStorage.getItem("token"),
       },
       body: JSON.stringify({ title, description, tag }),
     });
@@ -51,7 +51,7 @@ const NoteState = (props) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": authToken,
+        "auth-token": localStorage.getItem("token"),
       },
       body: JSON.stringify({ id }),
     });
@@ -64,28 +64,17 @@ const NoteState = (props) => {
 
   // edit notes
   const editNote = async (id, title, description, tag) => {
-    const responose = await fetch(`${host}/api/note/updatenote/${id}`, {
+    await fetch(`${host}/api/note/updatenote/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": authToken,
+        "auth-token": localStorage.getItem("token"),
       },
       body: JSON.stringify({ title, description, tag }),
     });
 
-    const json = await responose.json();
-    setNotes(notes.concat(json));
-
     const updatedNotes = notes.map((note) => {
-      if (note._id === id) {
-        return {
-          ...note,
-          title,
-          description,
-          tag,
-        };
-      }
-      return note;
+      return note._id === id ? { ...note, title, description, tag } : note;
     });
     setNotes(updatedNotes);
   };
@@ -94,7 +83,7 @@ const NoteState = (props) => {
   };
   return (
     <noteContext.Provider
-      value={{ notes, addNote, deleteNote, editNote, getNotes , clearNotes }}
+      value={{ notes, addNote, deleteNote, editNote, getNotes, clearNotes }}
     >
       {props.children}
     </noteContext.Provider>

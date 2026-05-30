@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate , Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Alert from "./Alert";
 export default function Login() {
   let navigate = useNavigate();
@@ -8,6 +8,13 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const showAlert = (type, message) => {
+    setAlert({ type, message });
+
+    setTimeout(() => {
+      setAlert(null);
+    }, 3000);
+  };
 
   const handleChange = (e) => {
     setCredentials({
@@ -31,27 +38,17 @@ export default function Login() {
     });
     const json = await response.json();
     if (json.success) {
-      setAlert({
-        type: "success",
-        message: "Login Successfully",
-      });
-
-      setTimeout(() => {
-        setAlert(null);
-      }, 3000);
-      navigate("/");
+      showAlert("success", "Login Successfully");
+      
       localStorage.setItem("token", json.authToken);
-
+      localStorage.setItem("name", json.user.name);
+      localStorage.setItem("emailid", json.user.emailid);
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
       // red
     } else {
-      setAlert({
-        type: "error",
-        message: "Invalid Credentials",
-      });
-
-      setTimeout(() => {
-        setAlert(null);
-      }, 3000);
+      showAlert("error", "Invalid Credentials");
     }
 
     console.log(json);
