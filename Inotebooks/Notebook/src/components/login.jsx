@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , Link } from "react-router-dom";
 import Alert from "./Alert";
 export default function Login() {
   let navigate = useNavigate();
@@ -99,6 +99,17 @@ export default function Login() {
           >
             Login
           </button>
+          <div className="mt-6 text-center">
+            <p className="text-zinc-400">
+              Don't have an account?{" "}
+              <Link
+                to="/signup"
+                className="text-yellow-400 font-semibold hover:underline"
+              >
+                Create Account
+              </Link>
+            </p>
+          </div>
         </form>
       </div>
     </div>

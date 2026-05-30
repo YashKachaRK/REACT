@@ -38,6 +38,7 @@ router.post(
 
       if (user) {
         return res.status(400).json({
+          success: false,
           error: "Sorry User is already there"
         });
       }

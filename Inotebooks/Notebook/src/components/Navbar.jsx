@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Menu, X, NotebookPen, Home, BookOpen, Star, User } from "lucide-react";
-
+import noteContext from "../context/notes/NoteContext";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const { clearNotes } = useContext(noteContext);
+
   let navigate = useNavigate();
   const navItems = [
     { name: "Home", icon: <Home size={18} />, path: "/" },
@@ -23,6 +25,8 @@ export default function Navbar() {
   }, []);
 
   const handleLogout = () => {
+    clearNotes();
+
     localStorage.removeItem("token");
     navigate("/login");
   };
