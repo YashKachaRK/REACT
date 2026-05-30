@@ -49,8 +49,8 @@ const NoteState = (props) => {
   };
   // delete a notes
   const deleteNote = async (id) => {
-    const responose = await fetch(
-      `${host}/api/note/deletenote/6a17d64dc6f0fd9878b219d4`,
+     await fetch(
+      `${host}/api/note/deletenote/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -62,7 +62,8 @@ const NoteState = (props) => {
       },
     );
 
-    console.log("Woking" + id);
+
+    
     const newNotes = notes.filter((note) => {
       return note._id !== id;
     });
@@ -72,7 +73,7 @@ const NoteState = (props) => {
   // edit notes
   const editNote = async (id, title, description, tag) => {
     const responose = await fetch(
-      `${host}/api/note/updatenote/6a17c93320f7d37ae0451399`,
+      `${host}/api/note/updatenote/${id}`,
       {
         method: "PUT",
         headers: {
@@ -84,13 +85,16 @@ const NoteState = (props) => {
       },
     );
 
+    const json = await responose.json();
+    setNotes(notes.concat(json));
+
     const updatedNotes = notes.map((note) => {
       if (note._id === id) {
         return {
           ...note,
-          title: title,
-          description: description,
-          tag: tag,
+          title,
+          description,
+          tag,
         };
       }
       return note;

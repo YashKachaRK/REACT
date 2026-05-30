@@ -89,7 +89,7 @@ router.put('/updatenote/:id',
         return res.status(401).json("Now Allowed")
       }
 
-      note = await Notes.findByIdAndUpdate(req.params.id , {$set: newNote} , {new : true})
+      note = await Notes.findByIdAndUpdate(req.params.id , {$set: newNote} ,{ returnDocument: "after" })
 
       res.send(note)
 
