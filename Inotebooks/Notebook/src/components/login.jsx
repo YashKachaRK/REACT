@@ -1,6 +1,7 @@
 import { useState } from "react";
-
+import Alert from "./Alert";
 export default function Login() {
+  const [alert, setAlert] = useState(null);
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -13,10 +14,34 @@ export default function Login() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(credentials);
+    const response = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        emailid: credentials.email,
+        password: credentials.password,
+      }),
+    });
+    const json = await response.json();
+    if (json.success) {
+      // red
+    } else {
+      setAlert({
+        type: "success",
+        message: "Note Added Successfully",
+      });
+
+      setTimeout(() => {
+        setAlert(null);
+      }, 3000);
+    }
+
+    console.log(json);
 
     // API Call Here
     // loginUser(credentials.email, credentials.password)
@@ -24,6 +49,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-zinc-950">
+      {alert && <Alert type={alert.type} message={alert.message} />}
       <div className="w-full max-w-md bg-zinc-900 p-8 rounded-2xl shadow-lg border border-zinc-800">
         <h2 className="text-3xl font-bold text-white text-center mb-6">
           Login
@@ -31,9 +57,7 @@ export default function Login() {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-zinc-300 mb-2">
-              Email
-            </label>
+            <label className="block text-zinc-300 mb-2">Email</label>
             <input
               type="email"
               name="email"
@@ -45,9 +69,7 @@ export default function Login() {
           </div>
 
           <div className="mb-6">
-            <label className="block text-zinc-300 mb-2">
-              Password
-            </label>
+            <label className="block text-zinc-300 mb-2">Password</label>
             <input
               type="password"
               name="password"

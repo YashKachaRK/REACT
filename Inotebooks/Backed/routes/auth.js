@@ -87,6 +87,7 @@ router.post(
   ],
 
   async (req, res) => {
+    let success = false;
     const errors = validationResult(req);
     // check error
     if (!errors.isEmpty()) {
@@ -101,6 +102,7 @@ router.post(
       let user = await User.findOne({ emailid });
       // jo no hoy to error
       if (!user) {
+        success : false
         return res.status(400).json({
           error: "Please try to login currect credentaials"
         });
@@ -109,6 +111,7 @@ router.post(
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
         return res.status(400).json({
+          success : false ,
           error: "Please try to login currect credentaials"
         });
       }
