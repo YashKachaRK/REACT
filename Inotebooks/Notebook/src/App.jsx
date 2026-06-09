@@ -1,9 +1,7 @@
 import Navbar from "./components/Navbar";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Notes from "./components/Notes";
-import Favorites from "./components/Favorites";
 import Profile from "./components/Profile";
-import Home from "./components/Home";
 import NoteState from "./context/notes/NoteState";
 import AddNote from "./components/AddNotes";
 import Login from "./components/login";

@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
-import noteContext from "../context/notes/NoteContext";
+import noteContext from "../context/notes/noteContext";
 import NoteItem from "./NoteItem";
 
 export default function Notes() {
   const context = useContext(noteContext);
   const { notes, getNotes, editNote } = context;
   useEffect(() => {
+    console.log("Notes component mounted");
     getNotes();
   }, []);
   const [note, setNote] = useState({

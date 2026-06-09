@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
-
-const JWT_SECRET = "YashKacha@#786";
-
+require("dotenv").config();
+const JWT_SECRET = process.env.JWT_SECRET;
 const fatchuser = (req, res, next) => {
 
   // GET TOKEN in header
@@ -17,9 +16,9 @@ const fatchuser = (req, res, next) => {
 
     // VERIFY TOKEN j  tokken malse e verify thase
     const data = jwt.verify(token, JWT_SECRET);
-//Store token user data inside request
+    //Store token user data inside request
     req.user = data.user;
-    
+
     next();
 
   } catch (error) {

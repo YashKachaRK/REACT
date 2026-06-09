@@ -1,5 +1,5 @@
 import { Pencil, Trash2, Tag } from "lucide-react";
-import noteContext from "../context/notes/NoteContext";
+import noteContext from "../context/notes/noteContext";
 import { useContext } from "react";
 export default function NoteCard(props) {
   const context = useContext(noteContext);

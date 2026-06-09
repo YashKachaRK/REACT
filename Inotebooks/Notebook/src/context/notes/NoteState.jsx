@@ -1,9 +1,12 @@
 import { useState } from "react";
-import noteContext from "./NoteContext";
+import noteContext from "./noteContext";
 
 // import { useState } from "react";
 const NoteState = (props) => {
+  // const host = "https://i-note-book-backed.vercel.app";
   const host = "http://localhost:5000";
+
+
 
   const [notes, setNotes] = useState([]);
   const getNotes = async () => {

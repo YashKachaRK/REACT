@@ -28,6 +28,9 @@ export default function Signup() {
     }, 3000);
   };
 
+  const host = "http://localhost:5000";
+  // const host = "https://i-note-book-backed.vercel.app";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -46,7 +49,7 @@ export default function Signup() {
     } else {
       console.table(credentials);
       const response = await fetch(
-        "http://localhost:5000/api/auth/addUser",
+        `${host}/api/auth/addUser`,
         {
           method: "POST",
           headers: {

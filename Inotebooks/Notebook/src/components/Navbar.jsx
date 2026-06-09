@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { Menu, X, NotebookPen,  BookOpen, User } from "lucide-react";
-import noteContext from "../context/notes/NoteContext";
+import noteContext from "../context/notes/noteContext";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function Navbar() {

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt')
 const User = require('../models/User');
-const JWT_SECRET = "YashKacha@#786"
+const JWT_SECRET = process.env.JWT_SECRET;
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const fatchuser = require('../middleware/fatchuser')
@@ -71,7 +71,10 @@ router.post(
     } catch (error) {
 
       console.log(error);
-      res.status(500).send("Server Error");
+      return res.status(500).json({
+        success: false,
+        error: error.message
+      });
 
     }
   }
@@ -137,7 +140,10 @@ router.post(
     } catch (error) {
 
       console.log(error);
-      res.status(500).send("Server Error");
+      return res.status(500).json({
+        success: false,
+        error: error.message
+      });
     }
   })
 
@@ -157,7 +163,10 @@ router.post(
       res.send(user)
     } catch (error) {
       console.log(error);
-      res.status(500).send("Server Error");
+      return res.status(500).json({
+        success: false,
+        error: error.message
+      });
     }
 
   })

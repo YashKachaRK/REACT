@@ -1,4 +1,4 @@
-import noteContext from "../context/notes/NoteContext";
+import noteContext from "../context/notes/noteContext";
 import { useContext, useState } from "react";
 import Alert from "./Alert";
 
